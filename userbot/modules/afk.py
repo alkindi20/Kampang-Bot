@@ -23,10 +23,10 @@ from userbot.events import register
 
 # ========================= CONSTANTS ============================
 AFKSTR = [
-    "`#AFK 🐨\n Maaf Boss Saya Sedang NGENTOT!!`",
-    "`#AFK 🐨\n Maaf Boss Saya Sedang NGENTOT\n Tolong Jangan Ganggu Saya!!",
-    "`#AFK 🐨\n Saya Sedang NGENTOT\n Jangan Ganggu Saya !!!!!`",
-    "`#AFK 🐨\n Maaf Boss Saya Sedang NGENTOT!!`",
+    "`#AFK \n Maaf Boss Lagi Sibuk!!`",
+    "`#AFK \n Maaf Boss Lagi Sibuk\n Ntar Balik Lagi!!",
+    "`#AFK \n Saya Sedang Sibuk\Ntar Balik Lagi !!!!!`",
+    "`#AFK \n Maaf Boss Lagi Sibuk!!`",
 ]
 
 
@@ -61,16 +61,16 @@ async def set_afk(afk_e):
     afk_start = start_1.replace(microsecond=0)
     if string:
         AFKREASON = string
-        await afk_e.edit(f"**AFK 🐨!**\nSaya NGENTOT Dulu Bro...\
+        await afk_e.edit(f"**AFK !**\nOff Bentar...\
         \nReason: `{string}`")
     else:
-        await afk_e.edit("**AFK 🐨!**\nSaya NGENTOT Dulu Bro...")
+        await afk_e.edit("**AFK !**\nOff Bentar, Ini Bot...")
     if user.last_name:
-        await afk_e.client(UpdateProfileRequest(first_name=user.first_name, last_name=user.last_name + " [ NGENTOT ]"))
+        await afk_e.client(UpdateProfileRequest(first_name=user.first_name, last_name=user.last_name + " [ AFK ]"))
     else:
-        await afk_e.client(UpdateProfileRequest(first_name=user.first_name, last_name=" [ NGENTOT ]"))
+        await afk_e.client(UpdateProfileRequest(first_name=user.first_name, last_name=" [ AFK ]"))
     if BOTLOG:
-        await afk_e.client.send_message(BOTLOG_CHATID, "#AFK\nGii Ngentot nich!")
+        await afk_e.client.send_message(BOTLOG_CHATID, "#AFK\nOff Bentar, Ini bot!")
     ISAFK = True
     afk_time = datetime.now()  # pylint:disable=E0602
     raise StopPropagation
@@ -97,7 +97,7 @@ async def type_afk_is_not_true(notafk):
     afk_end = back_alive.replace(microsecond=0)
     if ISAFK:
         ISAFK = False
-        msg = await notafk.respond("**OK Saya Udah CROTTTTT....**")
+        msg = await notafk.respond("**OK Gua Balik....**")
         time.sleep(3)
         await msg.delete()
         await notafk.client(UpdateProfileRequest(first_name=user.first_name, last_name=last1))
@@ -242,7 +242,7 @@ async def afk_on_pm(sender):
                 afk_since = f"`{int(seconds)}s`"
             if sender.sender_id not in USERS:
                 if AFKREASON:
-                    await sender.reply(f"gii ngentot bacotttt... {afk_since}.\
+                    await sender.reply(f"Lagi Sibuk, Ntar Balik Lagi, Ini Bot... {afk_since}.\
                         \nReason: `{AFKREASON}`")
                 else:
                     await sender.reply(str(choice(AFKSTR)))
@@ -251,7 +251,7 @@ async def afk_on_pm(sender):
             elif apprv and sender.sender_id in USERS:
                 if USERS[sender.sender_id] % randint(2, 4) == 0:
                     if AFKREASON:
-                        await sender.reply(f"dibilang gii ngentot... {afk_since}.\
+                        await sender.reply(f"dibilang lagi sibuk... {afk_since}.\
                             \nReason: `{AFKREASON}`")
                     else:
                         await sender.reply(str(choice(AFKSTR)))
